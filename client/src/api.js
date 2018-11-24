@@ -1,15 +1,19 @@
 import openSocket from 'socket.io-client';
-// import {fromEventPattern} from "rxjs";
-
-const socket = openSocket('http://localhost:8000');
-
-// const createDrawing = name => {
-//     socket.emit('createDrawing',{name});
-// };
+const port = 8000;
+const socket = openSocket('http://localhost:'+port);
 
 const createVote = (vote, cb) => {
     socket.on('createVoteSuccess',cb);
     socket.emit('createVote', vote);
+};
+
+const subscribeToVotes = (ticketId, cb) => {
+    socket.on('votes', cb);
+    socket.emit('subscribeToVotes',ticketId);
+};
+
+const unsubscribeToVotes = () => {
+    socket.off('votes');
 };
 
 const subscribeToTickets = (sprintId,cb) => {
@@ -24,5 +28,7 @@ const unsubscribeToTickets = () => {
 export {
     createVote,
     subscribeToTickets,
-    unsubscribeToTickets
+    unsubscribeToTickets,
+    subscribeToVotes,
+    unsubscribeToVotes
 }

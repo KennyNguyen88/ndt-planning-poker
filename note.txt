@@ -1,7 +1,37 @@
-r.db('awesome_whiteboard').table('tickets').insert({
+=====tickets
+- sprintId
+- ticketId
+- ticketName
+- createdDate
+- modifiedDate
+
+r.db('bizloan').table('tickets').insert({
 	sprintId: 1,
 	ticketId: 'TPL-001',
 	ticketName: 'TPL-001',
 	createdDate: new Date(),
-	modifyDate: new Date()
+	modifiedDate: new Date()
 })
+
+r.db('bizloan').table('tickets').insert({
+	sprintId: 1,
+	ticketId: 'TPL-002',
+	ticketName: 'TPL-002',
+	createdDate: new Date(),
+	modifiedDate: new Date()
+})
+
+r.db('bizloan').table('tickets').insert({
+	sprintId: 1,
+	ticketId: 'TPL-003',
+	ticketName: 'TPL-003',
+	createdDate: new Date(),
+	modifiedDate: new Date()
+})
+
+=====votes
+- playerName
+- ticketId
+- score
+- createdDate
+- modifiedDate

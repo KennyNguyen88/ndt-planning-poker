@@ -1,27 +1,22 @@
 const io = require('socket.io')();
 const r = require('rethinkdb');
 
-// //listen to client
-// function createDrawing({connection, name}) {
-//     r.table('drawing')
-//         .insert({name, timestamp: new Date()})
-//         .run(connection)
-//         .then(() => console.log('created a drawing with name: ', name));
-// }
-//
-// //notify client
-// function subscribeToDrawing({client, connection}) {
-//     r.table('drawing')
-//         .changes({include_initial: true})
-//         .run(connection)
-//         .then(cursor => {
-//             cursor.each((err, drawingRow) => client.emit('drawing',drawingRow.new_val))
-//         })
-// }
+function subscribeToVotes({client, connection, ticketId}) {
+    r.table('votes')
+        .filter(r.row("ticketId").eq(ticketId))
+        .changes({include_initial: true})
+        .run(connection)
+        .then(cursor => {
+            cursor.each((err, {new_val}) => {
+                client.emit('votes', new_val);
+            })
+        })
+}
 
 function createVote({client, connection, vote}) {
-    r.table('planningPoker')
-        .insert({...vote, timestamp: new Date()})
+
+    r.table('votes')
+        .insert({...vote})
         .run(connection)
         .then(() => client.emit('createVoteSuccess'));
 }
@@ -40,12 +35,12 @@ function subscribeToTickets({client, connection, sprintId}) {
 r.connect({
     host: 'localhost',
     port: 28015,
-    db: 'awesome_whiteboard'
+    db: 'bizloan'
 }).then(connection => {
     io.on('connection', client => {
-        // client.on('createDrawing', ({name}) => {createDrawing({connection, name});});
         client.on('createVote', (vote) => {createVote({client, connection, vote});});
         client.on('subscribeToTickets', (sprintId) => subscribeToTickets({client, connection,sprintId}));
+        client.on('subscribeToVotes', (ticketId) => subscribeToVotes({client, connection,ticketId}));
     });
 });
 

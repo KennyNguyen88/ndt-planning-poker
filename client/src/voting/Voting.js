@@ -16,11 +16,16 @@ const enhance = compose(
             const vote = {
                 playerName,
                 ticketId: match.params.ticketId,
-                score
+                score,
+                createdDate: new Date(),
+                modifiedDate: new Date()
             };
+
             createVote(
                 vote,
-                () => { updateVoted(true) }
+                () => {
+                    updateVoted(true)
+                }
             );
         }
     }),

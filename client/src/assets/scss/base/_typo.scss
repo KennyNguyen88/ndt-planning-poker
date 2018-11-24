@@ -1,0 +1,22 @@
+//@font-face {
+//  font-family: 'HelveticaNeueRegular';
+//  src: url('#{$path--font}/HelveticaNeueRegular.eot?#iefix') format('embedded-opentype'),
+//  url('#{$path--font}/HelveticaNeueRegular.woff') format('woff'),
+//  url('#{$path--font}/HelveticaNeueRegular.ttf') format('truetype'),
+//  url('#{$path--font}/HelveticaNeueRegular.svg?#HelveticaNeueRegular') format('svg');
+//}
+//
+////Font Stacks
+//$font-family--primary: 'HelveticaNeueRegular',Helvetica,Aria,sans-serif;
+
+$font-family--primary: Helvetica, Aria, sans-serif;
+
+//Font weight
+$font-weight--thin: 100;
+$font-weight--light: 300;
+$font-weight--medium: 400;
+$font-weight--bold: 700;
+$font-weight--ultra-bold: 900;
+
+//Font size
+$font-size--base: 16px;

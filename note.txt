@@ -1,0 +1,7 @@
+r.db('awesome_whiteboard').table('tickets').insert({
+	sprintId: 1,
+	ticketId: 'TPL-001',
+	ticketName: 'TPL-001',
+	createdDate: new Date(),
+	modifyDate: new Date()
+})

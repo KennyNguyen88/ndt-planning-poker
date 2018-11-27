@@ -2,6 +2,11 @@ import openSocket from 'socket.io-client';
 const port = 8000;
 const socket = openSocket('http://localhost:'+port);
 
+const clearVotes = (cb) => {
+    socket.on('clearVotesSuccess',cb);
+    socket.emit('clearVotes');
+};
+
 const createVote = (vote, cb) => {
     socket.on('createVoteSuccess',cb);
     socket.emit('createVote', vote);
@@ -30,5 +35,6 @@ export {
     subscribeToTickets,
     unsubscribeToTickets,
     subscribeToVotes,
-    unsubscribeToVotes
+    unsubscribeToVotes,
+    clearVotes
 }

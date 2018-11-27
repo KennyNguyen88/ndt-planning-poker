@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from "recharts";
-import {subscribeToVotes, unsubscribeToVotes} from "../api";
+import {subscribeToVotes, unsubscribeToVotes, clearVotes} from "../api";
 
 class Dashboard extends Component {
 
@@ -13,12 +13,16 @@ class Dashboard extends Component {
         super(props);
 
         const ticketId = "TPL-001";
-        const {data} = this.state;
-        const cb = ({score, playerName}) => {
+        const cb = (newVal) => {
 
-            this.setState(prevState => ({
-                data: prevState.data.concat({score, playerName, amt: 0})
-            }))
+            this.setState(prevState => {
+                return {
+                    data: [
+                        ...prevState.data,
+                        newVal
+                    ]
+                }
+            })
         };
 
         subscribeToVotes(ticketId, cb);
@@ -28,6 +32,10 @@ class Dashboard extends Component {
         unsubscribeToVotes();
     }
 
+    handleClear = () => {
+        clearVotes(() => this.setState(prevState => ({data: []})));
+    };
+
     render(){
 
         const {data} = this.state;
@@ -35,6 +43,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <h1> This is Dashboard</h1>
+                <button type="button" onClick={this.handleClear}> Clear </button>
 
                 <BarChart
                     width={600}

@@ -15,9 +15,11 @@ class Landing extends Component {
         const {currentSprint} = props;
 
         subscribeToTickets(currentSprint, (tickets) => {
-            this.setState(prevState => ({
-                tickets
-            }))
+            this.setState(prevState => (
+                {
+                    tickets
+                }
+            ))
         })
     }
 
@@ -31,10 +33,23 @@ class Landing extends Component {
 
         return (
 
-            <div>
-                <h1>Planning Poker</h1>
-                <h3>Choose tickets to play</h3>
-                <Tickets tickets={tickets} />
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 pt-5">
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <h1 className="text-center">Planning Poker</h1>
+                                <h3 className="text-center">Choose tickets to play</h3>
+                            </div>
+                        </div>
+                       <div className="row">
+                           <div className="col-12">
+                               <Tickets tickets={tickets} />
+                           </div>
+                       </div>
+
+                    </div>
+                </div>
             </div>
 
         )

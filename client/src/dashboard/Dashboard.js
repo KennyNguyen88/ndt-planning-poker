@@ -30,6 +30,7 @@ class Dashboard extends Component {
 
     componentWillUnmount(){
         unsubscribeToVotes();
+        clearVotes();
     }
 
     handleClear = () => {
@@ -41,23 +42,38 @@ class Dashboard extends Component {
         const {data} = this.state;
 
         return (
-            <div>
-                <h1> This is Dashboard</h1>
-                <button type="button" onClick={this.handleClear}> Clear </button>
+            <div className="container pt-5">
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-end">
+                        <button type="button" className="btn btn-danger" onClick={this.handleClear}> Clear </button>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <h2 className="text-center"> Voting result for Ticket</h2>
+                    </div>
+                </div>
 
-                <BarChart
-                    width={600}
-                    height={300}
-                    data={data}
-                    margin={{top: 5, right: 30, left: 20, bottom: 5}}
-                >
-                    <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="playerName"/>
-                    <YAxis/>
-                    <Tooltip/>
-                    <Legend />
-                    <Bar dataKey="score" fill="#82ca9d" />
-                </BarChart>
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-center align-items-center">
+                        <BarChart
+                            width={600}
+                            height={300}
+                            data={data}
+                            margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                        >
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <XAxis dataKey="playerName"/>
+                            <YAxis/>
+                            <Tooltip/>
+                            <Legend />
+                            <Bar dataKey="score" fill="#82ca9d" />
+                        </BarChart>
+                    </div>
+                </div>
+
+
+
 
             </div>
 

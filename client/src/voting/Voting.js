@@ -1,10 +1,8 @@
 import React from "react";
 import { withState, withHandlers, compose } from "recompose";
 import {withRouter} from "react-router-dom";
-// import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 import {createVote} from "../api";
-// import {votingActions} from "../voting/ducks";
 
 const enhance = compose(
     withState('playerName','updatePlayerName',''),
@@ -59,39 +57,71 @@ const Voting = withRouter(enhance(({history,match,
 
     const inputScores = scores.map(score => {
         return (
-            <div key={score}>
+            <div key={score} className="inputGroup mb-2">
                 <input
                     type="radio"
                     value={score}
                     name="score"
                     id={`score${score}`}
                     onChange={handleScoreChange}
+                    required
+                    disabled={voted}
                 />
                 <label htmlFor={`score${score}`}> {score} </label>
             </div>
         )
     });
 
-    const backToHome = <Link to="/">Back</Link>;
-    const infoSuccess = <label>You voted {score} point(s) for {ticketId}</label>;
-
     return (
-        <div>
-            <h1> Vote for {ticketId} </h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Input player name"
-                    name="player"
-                    value={playerName}
-                    onChange={handlePlayerName}
-                    required
-                />
-                {inputScores}
-                <button type="submit"> OK </button>
-                {backToHome}
-                {voted ? infoSuccess : ''}
-            </form>
+        <div className="container">
+            <div className="row">
+                <div className="col-12 pt-5">
+                    <div className="row mb-3">
+                        <div className="col-12">
+                            <h2 className="text-center"> Vote for {ticketId} </h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12">
+                            <form onSubmit={handleSubmit}>
+                                <div className="row">
+                                    <div className="col-12 col-md-6 m-auto">
+                                        <div className="form-group mb-0 ">
+                                            <input
+                                                type="text"
+                                                placeholder="Input player name"
+                                                name="player"
+                                                value={playerName}
+                                                onChange={handlePlayerName}
+                                                className="form-control"
+                                                required
+                                                disabled={voted}
+                                            />
+                                            <div className="p-3">
+                                                {inputScores}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {voted ? <div className="text-center mb-3">You voted {score} point(s) for {ticketId}</div> : ''}
+                                <div className="row">
+                                    <div className="col-12 d-flex flex-column">
+                                        <div className="text-center mb-2"><button type="submit" className="btn btn-success"> VOTE </button></div>
+                                        <div className="text-center"><Link to="/">Back</Link></div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
         </div>
     )
 }));

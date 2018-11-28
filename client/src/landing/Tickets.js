@@ -4,16 +4,17 @@ import Ticket from "./Ticket";
 export const Tickets = ({tickets}) => {
 
     const ticketList = tickets.map(t => {
-        const {id, ticketId} = t;
+        const {id, ticketId,ticketName} = t;
         return (
-            <Ticket key={id} ticketId={ticketId} />
+            <Ticket key={id} {...t} />
         )
     });
 
     return (
-        <ul>
+        <div className="ticket-container">
             {ticketList}
-        </ul>
+        </div>
+
     )
 
 };
